@@ -1,11 +1,13 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken"
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, 'Name is required'],
-        trim: true
+        required: [true, "Username is required"],
+        unique: true,
+        lowercase: true,
     },
     email: {
         type: String,
@@ -18,16 +20,13 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Password is required'],
-        minlength: [6, 'Password must be at least 6 characters']
+        minlength: [6, 'Password must be at least 7 characters']
     },
-    // role: {
-    //     type: String,
-    //     enum: ['user', 'admin'],
-    //     default: 'user'
-    // },
     avatar: {
         type: String,
-        default: 'default-avatar.png'
+    },
+    refreshToken: {
+        type: String, 
     },
     isActive: {
         type: Boolean,

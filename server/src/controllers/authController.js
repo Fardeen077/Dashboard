@@ -1,7 +1,5 @@
 import { ApiError } from "../utils/ApiError.js";
-import { User } from "../models/User.js";
-// import jwt from "jsonwebtoken";
-// import mongoose from "mongoose";
+import { User } from "../models/userModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 
@@ -22,9 +20,11 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
+    console.log("Incoming data:", req.body); //
     const { email, username, password } = req.body;
-
-    if ([email, username, password].some((filed) => filed?.trim() === "")) {
+    // console.log(req.body);
+    
+    if ([email, username, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields cannot be empty");
     }
     const existsUser = await User.findOne({
@@ -38,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username: username?.toLowerCase() || "",
         email: email?.toLowerCase() || "",
         password,
-        avatar: "https://example.com/default-avatar.png", // default image
+        avatar: "https://images6.alphacoders.com/125/thumbbig-1258531.webp", // default image
     });
 
     const tokens = await generateAccessTokenAndRefreshToken(user._id);
@@ -46,13 +46,13 @@ const registerUser = asyncHandler(async (req, res) => {
     if (!createdUser) {
         throw new ApiError(500, "Error creating user !!!");
     }
-    return res.status(201).json(new ApiResponse(201, "User created", { user: createdUser, ...tokens }));
+    return res.status(201).json(new ApiResponse(201,{ user: createdUser, ...tokens },"User created",));
 });
 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password, username } = req.body;
     if (!email && !username) {
-        throw new ApiError(400, "Email and Username are required");
+        throw new ApiError(400, "Email and userusername are required");
     };
     const user = await User.findOne({ $or: [{ email }, { username }] });
     if (!user) {
@@ -94,8 +94,6 @@ const logoutUser = asyncHandler(async (req, res) => {
         .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logged out successfully"))
 });
-
-
 
 export {
     generateAccessTokenAndRefreshToken,
