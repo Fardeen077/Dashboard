@@ -1,24 +1,31 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { useSelector } from "react-redux";
+import Task from "./pages/Task";
+import Navbar from "./components/Layout/Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const user = useSelector(state => state.auth.user); // get logged-in user from Redux
 
   return (
-    <>
-      <h1>DashBoard</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Navbar />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Private Route */}
+        <Route
+          path="/"
+          element={user ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route path="/task" element={user ? <Task /> : <Navigate to="/login" />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
