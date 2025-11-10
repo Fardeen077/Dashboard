@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
+import { clearTasks } from "../../redux/slices/tasksSlice";
 import Button from "../Common/Button";
 
 const Navbar = () => {
@@ -12,7 +13,13 @@ const Navbar = () => {
     const user = useSelector((state) => state.auth.user);
 
     const handleLogout = () => {
+        // Clear Redux state
         dispatch(logout());
+        dispatch(clearTasks());
+        // Clear localStorage
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        // Navigate to login
         navigate("/login");
     };
 
@@ -22,7 +29,7 @@ const Navbar = () => {
                 <div className="flex justify-between h-16 items-center">
                     {/* Logo */}
                     <div className="flex shrink-0">
-                        <Link to="/home" className="text-2xl font-bold">
+                        <Link to="/" className="text-2xl font-bold">
                             Dashboard
                         </Link>
                     </div>
@@ -32,7 +39,7 @@ const Navbar = () => {
 
                         {user ? (
                             <>
-                                <Link to="/home" className="hover:text-gray-300">
+                                <Link to="/" className="hover:text-gray-300">
                                     Home
                                 </Link>
                                 <Link to="/profile" className="hover:text-gray-300">
@@ -66,7 +73,7 @@ const Navbar = () => {
 
                     {user ? (
                         <>
-                            <Link to="/home" className="block hover:text-gray-300">
+                            <Link to="/" className="block hover:text-gray-300">
                                 Home
                             </Link>
                             <Link to="/profile" className="block hover:text-gray-300">

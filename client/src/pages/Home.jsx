@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import StateCard from "../components/Dashboard/StatsCard";
 import Button from "../components/Common/Button";
 import { login, } from "../redux/slices/authSlice";
+import { setTasks } from "../redux/slices/tasksSlice";
+import { getTasksApi } from "../api/tasksApi";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -46,6 +48,24 @@ const Home = () => {
       navigate("/login");
     }
   }, [user, loading, navigate]);
+
+  // Fetch tasks from server when component mounts
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        if (user) {
+          const data = await getTasksApi();
+          console.log("Fetched tasks:", data);
+          // Handle response structure from backend
+          dispatch(setTasks(data.data || data)); // adjust based on your API response
+        }
+      } catch (error) {
+        console.error("Failed to fetch tasks:", error);
+      }
+    };
+
+    fetchTasks();
+  }, [user, dispatch]);
 
   console.log("Tasks:", tasks);
   console.log("User:", user);

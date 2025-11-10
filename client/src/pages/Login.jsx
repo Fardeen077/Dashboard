@@ -34,7 +34,7 @@ const Login = () => {
             dispatch(setUser(data.data.user)); // save user in Redux
             // console.log(dispatch(setUser(data.data.user)));
 
-            navigate("/home"); // redirect to home/dashboard
+            navigate("/"); // redirect to home/dashboard
         } catch (err) {
             setError(err.response?.data?.message || "Login failed");
         }
