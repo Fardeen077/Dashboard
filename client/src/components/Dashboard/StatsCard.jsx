@@ -8,8 +8,8 @@ const StateCard = ({ task }) => {
 
     // ✅ Use optional chaining + default values
     const [isEditing, setIsEditing] = useState(false);
-    const [title, setTitle] = useState(task?.title || "");
-    const [description, setDescription] = useState(task?.description || "");
+    const [title, setTitle] = useState(task.title);
+    const [description, setDescription] = useState(task.description);
     const [status, setStatus] = useState(task?.status || "pending");
     const [priority, setPriority] = useState(task?.priority || "medium");
     const [dueDate, setDueDate] = useState(task?.dueDate || new Date().toISOString());

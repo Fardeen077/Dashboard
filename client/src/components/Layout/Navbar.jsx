@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/slices/authSlice"; 
+import { logout } from "../../redux/slices/authSlice";
 import Button from "../Common/Button";
 
 const Navbar = () => {
@@ -22,19 +22,19 @@ const Navbar = () => {
                 <div className="flex justify-between h-16 items-center">
                     {/* Logo */}
                     <div className="flex shrink-0">
-                        <Link to="/" className="text-2xl font-bold">
-                            MyApp
+                        <Link to="/home" className="text-2xl font-bold">
+                            Dashboard
                         </Link>
                     </div>
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex space-x-6 items-center">
-                        <Link to="/" className="hover:text-gray-300">
-                            Home
-                        </Link>
 
                         {user ? (
                             <>
+                                <Link to="/home" className="hover:text-gray-300">
+                                    Home
+                                </Link>
                                 <Link to="/profile" className="hover:text-gray-300">
                                     Profile
                                 </Link>
@@ -54,7 +54,7 @@ const Navbar = () => {
                     {/* Mobile Menu Button */}
                     <div className="md:hidden flex items-center">
                         <button onClick={() => setIsOpen(!isOpen)}>
-                            {isOpen ? <FiX  className="h-6 w-6" /> : <FiMenu  className="h-6 w-6" />}
+                            {isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
                         </button>
                     </div>
                 </div>
@@ -63,12 +63,12 @@ const Navbar = () => {
             {/* Mobile Menu */}
             {isOpen && (
                 <div className="md:hidden bg-gray-800 px-4 pt-2 pb-4 space-y-2">
-                    <Link to="/" className="block hover:text-gray-300">
-                        Home
-                    </Link>
 
                     {user ? (
                         <>
+                            <Link to="/home" className="block hover:text-gray-300">
+                                Home
+                            </Link>
                             <Link to="/profile" className="block hover:text-gray-300">
                                 Profile
                             </Link>

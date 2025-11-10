@@ -4,6 +4,8 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { Task } from "../models/taskModel.js"
 
 const createTask = asyncHandler(async (req, res, next) => {
+    // log incoming body to help debug client payload issues
+    console.log('[taskController] createTask req.body:', req.body);
     const { title, description, status, priority, dueDate } = req.body;
     if (!title || !description) {
         throw new ApiError(400, "Title or description is required");

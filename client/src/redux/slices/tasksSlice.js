@@ -12,11 +12,14 @@ const taskSlice = createSlice({
             state.tasks.push(action.payload);
         },
         removeTask: (state, action) => {
-            state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+            state.tasks = state.tasks.filter((task) => task._id !== action.payload);
         },
         updateTask: (state, action) => {
-            state.tasks = state.tasks.map((task) => task.id === action.payload.id ? action.payload : task);
+            state.tasks = state.tasks.map((task) =>
+                task._id === action.payload._id ? action.payload : task
+            );
         },
+
         setTasks: (state, action) => {
             state.tasks = action.payload;
         }

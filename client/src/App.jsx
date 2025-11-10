@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import { useSelector } from "react-redux";
 import Task from "./pages/Task";
 import Navbar from "./components/Layout/Navbar";
+import Profile from "./pages/Profile";
 
 function App() {
   const user = useSelector(state => state.auth.user); // get logged-in user from Redux
@@ -19,9 +20,10 @@ function App() {
 
         {/* Private Route */}
         <Route
-          path="/"
+          path="/home"
           element={user ? <Home /> : <Navigate to="/login" />}
         />
+        <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
         <Route path="/task" element={user ? <Task /> : <Navigate to="/login" />} />
       </Routes>
     </Router>

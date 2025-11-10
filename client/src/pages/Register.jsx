@@ -23,8 +23,8 @@ const Register = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4 border rounded">
-      <h1 className="text-2xl font-bold mb-4">Register</h1>
+    <div className="max-w-md mx-10 p-4 border rounded mt-24 md:mx-auto ">
+      <h1 className="text-2xl font-bold mb-4 flex justify-center">Register</h1>
       {error && <p className="text-red-500 mb-2">{error}</p>}
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <input
@@ -54,9 +54,17 @@ const Register = () => {
           className="border p-2 rounded"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-5 hover:bg-blue-600 transition-all cursor-pointer">
           Register
         </button>
+
+        <p className="text-sm text-center text-gray-600 mb-4">
+          Already have account? {""}
+          <span onClick={()=> navigate("/login")}
+            className="text-blue-500 cursor-pointer hover:underline">
+              Login
+          </span>
+        </p>
       </form>
     </div>
   );

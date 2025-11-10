@@ -34,15 +34,15 @@ const Login = () => {
             dispatch(setUser(data.data.user)); // save user in Redux
             // console.log(dispatch(setUser(data.data.user)));
 
-            navigate("/"); // redirect to home/dashboard
+            navigate("/home"); // redirect to home/dashboard
         } catch (err) {
             setError(err.response?.data?.message || "Login failed");
         }
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-4 border rounded">
-            <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <div className="max-w-md mx-10 p-4 border rounded mt-24 md:mx-auto">
+            <h1 className="text-2xl font-bold  mb-4 flex justify-center">Login</h1>
             {error && <p className="text-red-500 mb-2">{error}</p>}
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                 <input
@@ -63,18 +63,16 @@ const Login = () => {
                     className="border p-2 rounded"
                     required
                 />
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-all mt-5">
                     Login
                 </button>
             </form>
 
-            <p className="mt-4 text-center">
-                Don’t have an account?{" "}
-                <span
-                    onClick={() => navigate("/register")}
-                    className="text-blue-500 cursor-pointer underline"
-                >
-                    Register
+            <p className="text-sm text-center text-gray-600 mb-4">
+                Already have account? {""}
+                <span onClick={() => navigate("/register")}
+                    className="text-blue-500 cursor-pointer hover:underline">
+                    register
                 </span>
             </p>
         </div>

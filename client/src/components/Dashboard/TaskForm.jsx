@@ -28,6 +28,7 @@ const TaskForm = () => {
       priority,
       dueDate: dueDate || new Date().toISOString(),
     };
+    console.log("[TaskForm] submit payload:", newTask);
 
     try {
       const createdTask = await createTaskApi(newTask);
@@ -50,7 +51,7 @@ const TaskForm = () => {
         type="text"
         placeholder="Title"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => { setTitle(e.target.value); console.log('[TaskForm] title change:', e.target.value); }}
         className="border p-2 rounded"
         required
       />
@@ -59,7 +60,7 @@ const TaskForm = () => {
         type="text"
         placeholder="Description"
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => { setDescription(e.target.value); console.log('[TaskForm] description change:', e.target.value); }}
         className="border p-2 rounded"
         required
       />
